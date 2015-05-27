@@ -70,8 +70,8 @@
                 <tbody>
                     {% for servicesOfMasters in ServicesOFMasters %}
                         <tr>
-                            <td>{{servicesOfMasters.master}}</td>
-                            <td>{{servicesOfMasters.service}}</td>
+                            <td>{{servicesOfMasters.master.id}}</td>
+                            <td>{{servicesOfMasters.service.id}}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -90,8 +90,8 @@
                 <tbody>
                     {% for booking in Booking %}
                         <tr>
-                            <td>{{booking.service}}</td>
-                            <td>{{booking.master}}</td>
+                            <td>{{booking.service.id}}</td>
+                            <td>{{booking.master.id}}</td>
                             <td>{{booking.date}}</td>
                             <td>{{booking.time}}</td>
                         </tr>
