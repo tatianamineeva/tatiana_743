@@ -17,15 +17,26 @@ Including another URLconf
 from django.conf.urls import include, url, patterns
 from django.contrib import admin
 from views import IndexView
+from views import MasterAdd, MasterDelete, ServiceAdd, ServiceDelete, ServicesOfMastersAdd, ServicesOfMastersDelete, BookingAdd, BookingDelete
 
-'''
-urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', IndexView.as_view())
-]
-'''
+# urlpatterns = [
+#     url(r'^admin/', include(admin.site.urls)),
+#     url(r'^$', IndexView.as_view())
+# ]
+
+
 urlpatterns = patterns ('',
-    url(r'^admin/', include(admin.site.urls)),
+
+    url(r'^master', MasterAdd.as_view()),
+    url(r'^name_delete', MasterDelete.as_view()),
+    url(r'^service', ServiceAdd.as_view()),
+    url(r'^deleteService', ServiceDelete.as_view()),
+    url(r'^som', ServicesOfMastersAdd.as_view()),
+    url(r'^deleteSom', ServicesOfMastersDelete.as_view()),
+    url(r'^bo', BookingAdd.as_view()),
+    url(r'^deleteBo', BookingDelete.as_view()),
+
     url(r'^$', IndexView.as_view()),
+
 )
 

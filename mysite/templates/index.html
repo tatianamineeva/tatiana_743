@@ -9,11 +9,20 @@
 	</head>
 	<body>
         <div class="container">
-            <h1 style="text-align:center;">Лабораторная работа №2</h1>
+            <h1 style="text-align:center;">Лабораторная работа №3</h1>
 
             <h2>База  данных "Салон красоты"</h2>
 
             <h4>Услуги</h4>
+
+            <h5>Добавить услугу</h5>
+            <form action="/service/" method="post">
+                Наименование <input type="text", name="name" size="20", height="100%">
+                Цена <input type="text", name="price" size="20", height="100%">
+                Описание <input type="text", name="description" size="20", height="100%">
+                    {% csrf_token %}
+                <input type="submit">
+            </form>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -30,12 +39,29 @@
                             <td>{{service.name}}</td>
                             <td>{{service.price}}</td>
                             <td>{{service.description}}</td>
+                            <td> <form action='/deleteService/' method=post>
+                                {% csrf_token %}
+                                <button name="deleteService" value="{{service.id}}">Удалить</button>
+                                </form>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
 
             <h4>Мастера</h4>
+
+            <h5>Добавить мастера</h5>
+            <form action='/master/' method=post>
+                ФИО <input type="text", name="lastName" size="20", height="100%">
+                    <input type="text", name="firstName" size="20", height="100%">
+                    <input type="text", name="middleName" size="20", height="100%">
+                Пол <input type="text", name="sex" size="20", height="100%">
+                    {% csrf_token %}
+                <input type="submit">
+            </form>
+
+
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -54,12 +80,33 @@
                             <td>{{master.firstName}}</td>
                             <td>{{master.middleName}}</td>
                             <td>{{master.sex}}</td>
+                            <td> <form action='/name_delete/' method=post>
+                                {% csrf_token %}
+                                <button name="name_delete" value="{{master.id}}">Удалить</button>
+                                </form>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
 
             <h4>Услуги мастеров</h4>
+
+            <h5>Добавить услугу мастера</h5>
+            <form action='/som/' method=post>
+                Код мастера <select name="master" class="selectpicker">
+                {% for master in masters %}
+                <option value="{{master.id}}">{{master.id}}</option>
+                {% endfor %}
+            </select>
+                Номер услуги <select name="service" class="selectpicker">
+                {% for service in service_list %}
+                <option value="{{service.id}}">{{service.id}}</option>
+                {% endfor %}
+            </select>
+                    {% csrf_token %}
+                <input type="submit">
+            </form>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -72,12 +119,34 @@
                         <tr>
                             <td>{{servicesOfMasters.master.id}}</td>
                             <td>{{servicesOfMasters.service.id}}</td>
+                            <td><form action='/deleteSom/' method=post>
+                                 {% csrf_token %}
+                                  <button name="deleteSom" value="{{servicesOfMasters.id}}">Удалить</button>
+                                 </form></td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
 
             <h4>Запись на услуги</h4>
+
+             <h5>Добавить запись</h5>
+            <form action='/bo/' method=post>
+                Код мастера <select name="master" class="selectpicker">
+                {% for master in masters %}
+                <option value="{{master.id}}">{{master.id}}</option>
+                {% endfor %}
+            </select>
+                Номер услуги <select name="service" class="selectpicker">
+                {% for service in service_list %}
+                <option value="{{service.id}}">{{service.id}}</option>
+                {% endfor %}
+            </select>
+                Дата <input type="text", name="date" size="20", height="100%">
+                Время <input type="text", name="time" size="20", height="100%">
+                    {% csrf_token %}
+                <input type="submit">
+            </form>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -94,6 +163,11 @@
                             <td>{{booking.master.id}}</td>
                             <td>{{booking.date}}</td>
                             <td>{{booking.time}}</td>
+                            <td><form action='/deleteBo/' method=post>
+                                 {% csrf_token %}
+                                  <button name="deleteBo" value="{{booking.id}}">Удалить</button>
+                                 </form></td>
+
                         </tr>
                     {% endfor %}
                 </tbody>
